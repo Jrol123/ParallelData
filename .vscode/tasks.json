@@ -7,10 +7,11 @@
             "type": "process",
             "args": [
                 "build",
-                "${fileDirname}/${fileDirnameBasename}.csproj",
+                "${workspaceFolder}/src/src.sln",
                 "--nologo",
                 "--verbosity",
-                "minimal"
+                "minimal",
+                "/target:${fileDirnameBasename}"
             ],
             "group": "build",
             "presentation": {
@@ -27,6 +28,7 @@
             "type": "process",
             "args": [
                 "build",
+                "${workspaceFolder}/src/src.sln",
                 "--nologo",
                 "--verbosity",
                 "minimal"
