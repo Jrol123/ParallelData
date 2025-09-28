@@ -1,61 +1,78 @@
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "build-current-project",
-      "command": "dotnet",
-      "type": "process",
-      "args": [
-        "build",
-        "${fileDirname}/${fileDirnameBasename}.csproj",
-        "--nologo",
-        "--verbosity",
-        "minimal"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": "$msCompile"
-    },
-    {
-      "label": "build-all-projects",
-      "command": "dotnet",
-      "type": "process",
-      "args": [
-        "build",
-        "--nologo",
-        "--verbosity",
-        "minimal"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": "$msCompile"
-    },
-    {
-      "label": "clean-current-project",
-      "command": "dotnet",
-      "type": "process",
-      "args": [
-        "clean",
-        "${fileDirname}/${fileDirnameBasename}.csproj",
-        "--nologo"
-      ],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      }
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-current-project",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${fileDirname}/${fileDirnameBasename}.csproj",
+                "--nologo",
+                "--verbosity",
+                "minimal"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-all-projects",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "--nologo",
+                "--verbosity",
+                "minimal"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "clean-current-project",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "clean",
+                "${fileDirname}/${fileDirnameBasename}.csproj",
+                "--nologo"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "run-tests",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "--verbosity",
+                "normal"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
+    ]
 }
