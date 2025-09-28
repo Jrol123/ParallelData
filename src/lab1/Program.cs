@@ -32,7 +32,7 @@ namespace lab1
             }
             catch (System.Exception)
             {
-                int default_number = 17;
+                const int default_number = 17;
                 Console.WriteLine($"В следующий раз используйте цифры!\nВаш ввод был заменён на: {default_number}");
                 return default_number;
             }
