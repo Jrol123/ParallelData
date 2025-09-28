@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Current Project",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-current-project",
+      "program": "${fileDirname}/bin/Debug/net8.0/${fileDirnameBasename}.dll",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "console": "integratedTerminal",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    {
+      "name": "Launch with Debugging",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${fileDirname}/bin/Debug/net8.0/${fileDirnameBasename}.dll",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    }
+  ]
+}
