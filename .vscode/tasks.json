@@ -73,6 +73,54 @@
                 "focus": false,
                 "panel": "shared"
             }
+        },
+        {
+            "label": "create-sln",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "new",
+                "sln",
+                "--output",
+                "${fileDirname}"
+            ]
+        },
+        {
+            "label": "add-csproj-sln",
+            "command": "dotnet",
+            "type": "process",
+            "group": "none",
+            "args": [
+                "sln",
+                "${fileDirname}/${fileDirnameBasename}.sln",
+                "add",
+                "${fileDirname}/${fileDirnameBasename}.csproj"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "create-solution",
+            "command": "",
+            "type": "process",
+            "group": "none",
+            "dependsOn": [
+                "create-sln",
+                "add-csproj-sln"
+            ],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
         }
     ]
 }
