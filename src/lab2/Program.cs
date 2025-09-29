@@ -46,6 +46,7 @@ namespace lab2
                 int strLength = str.Length;
                 for (int i = 0; i < strLength; i++)
                 {
+                    cancelToken.ThrowIfCancellationRequested();
                     progress?.Report($"Шаг {i + 1} из {strLength} возможных");
                     if (charArray[i] == symbol)
                     {
@@ -54,7 +55,6 @@ namespace lab2
                     }
 
                     await Task.Delay(DELAY, cancelToken);
-                    cancelToken.ThrowIfCancellationRequested();
                 }
                 progress?.Report("Finish");
 
