@@ -63,15 +63,16 @@ namespace lab2
 
             using var cancellationSource = new CancellationTokenSource();
             var tasks = new List<Task<bool?>>();
-            var progress = new Progress<string>(message =>
-            {
-                Console.WriteLine($"[{DateTime.Now:HH:mm:ss.fff}] {message}");
-            });
 
-            foreach (var part in parts)
+
+            for (int i = 0; i < parts.Length; i++)
             {
+                var progress = new Progress<string>(message =>
+                {
+                    Console.WriteLine($"[{DateTime.Now:HH:mm:ss.fff}] [Процесс {i + 1}] {message}");
+                });
                 // Каждая часть проверяется в отдельной задаче
-                tasks.Add(lambdaDelegate(part, symbol, progress, cancellationSource.Token));
+                tasks.Add(lambdaDelegate(parts[i], symbol, progress, cancellationSource.Token));
             }
 
             bool found = false;
