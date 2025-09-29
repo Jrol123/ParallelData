@@ -57,7 +57,7 @@ namespace lab1
                 return int.Parse(input);
 #pragma warning restore CS8604
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 const int default_number = 17;
                 Console.WriteLine($"В следующий раз используйте цифры!\nВаш ввод был заменён на: {default_number}");
