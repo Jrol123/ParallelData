@@ -2,21 +2,6 @@ namespace lab2
 {
     class Program
     {
-
-        // TODO: Сделать делегат вида лямбда выражения. Метод, подаваемый на него, будет возвращать логическое значение, указывающее, существует ли заданный символ в строке. На вход: строка, искомый символ. Требуется иметь возможность монитерить прогресс
-        // public delegate Task<int> TakesAWhileDelegate(int data, int ms, IProgress<string>? progress);
-        // static async Task<bool> HasSymbol(string str, char symbol, IProgress<string> progress)
-        // {
-        //     progress.Report("Start");
-
-        //     foreach (char strSymbol in str.ToCharArray())
-        //         if (strSymbol == symbol) return true;
-        //     await Task.Delay(DELAY);
-
-        //     progress.Report("Finish");
-
-        //     return false;
-        // }
         const short DELAY = 500;
         public static string[] SplitString(string input, int countParts)
         {
