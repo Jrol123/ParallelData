@@ -77,7 +77,7 @@ namespace lab2
 
             bool found = false;
             // Ждём, когда любая задача найдёт символ
-            while (tasks.Count > 0 && found == false)
+            while (tasks.Count > 0)
             {
                 var completedTask = await Task.WhenAny(tasks);
 
