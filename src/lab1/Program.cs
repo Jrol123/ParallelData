@@ -9,17 +9,44 @@ namespace lab1
         /// <param name="floatList">Дефолтные цифры</param>
         public delegate void CustomDelegate(Func<int> intGetter, List<float> floatList);
 
+        /// <summary>
+        /// Получатель случайного числа
+        /// </summary>
+        /// <returns>
+        ///     <summary>
+        ///     Случайное число
+        ///     </summary>
+        /// </returns>
         static int GetRandomNumber()
         {
             Random rnd = new();
             return rnd.Next(1, 100);
         }
 
+        /// <summary>
+        /// Получатель фиксированного числа
+        /// </summary>
+        /// <returns>
+        ///     <summary>
+        ///     Фиксированное число
+        ///     </summary>
+        /// </returns>
         static int GetFixedNumber()
         {
             return 42;
         }
 
+        /// <summary>
+        /// Получатель пользовательского числа
+        /// </summary>
+        /// <returns>
+        ///     <summary>
+        ///     Пользовательскоге число.
+        ///     </summary>
+        /// </returns>
+        /// <exception cref="null">
+        /// В случае ошибки ввода возвращается константа
+        /// </exception>
         static int GetUserInput()
         {
             Console.Write("Введите число: ");
@@ -30,7 +57,7 @@ namespace lab1
                 return int.Parse(input);
 #pragma warning restore CS8604
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 const int default_number = 17;
                 Console.WriteLine($"В следующий раз используйте цифры!\nВаш ввод был заменён на: {default_number}");
