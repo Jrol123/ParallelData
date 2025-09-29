@@ -2,6 +2,24 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch Current Lab",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-current-lab",
+      "program": "${fileDirname}/bin/Debug/net9.0/${fileDirnameBasename}.dll",
+      "args": [],
+      "cwd": "${fileDirname}",
+      "console": "integratedTerminal",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    {
       "name": "Launch Current Project",
       "type": "coreclr",
       "request": "launch",
