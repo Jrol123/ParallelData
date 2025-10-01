@@ -28,6 +28,34 @@ namespace lab2
             return parts;
         }
 
+        static async Task<(bool found, bool timeoutOccurred)> CheckTasks(TimeSpan overallTimeout, CancellationTokenSource cancellationSource, List<Task<bool?>> tasks, bool found, bool timeoutOccurred)
+        {
+            while (tasks.Count > 0)
+            {
+                try
+                {
+                    var completedTask = await Task.WhenAny(tasks);
+                    tasks.Remove(completedTask);
+
+                    var result = await completedTask;
+                    if (result == true)
+                    {
+                        cancellationSource.Cancel();
+                        found = true;
+                        break;
+                    }
+                }
+                catch (OperationCanceledException) when (cancellationSource.Token.IsCancellationRequested)
+                {
+                    timeoutOccurred = true;
+                    Console.WriteLine($"\nВнимание: Превышено общее время выполнения ({overallTimeout.TotalSeconds} сек.).");
+                    break;
+                }
+            }
+
+            return (found, timeoutOccurred);
+        }
+
         public delegate Task<bool?> AsyncDelegate(string str, char symbol, IProgress<string> progress, CancellationToken cancellationToken);
 
         public static async Task Main(string[] args)
@@ -80,29 +108,7 @@ namespace lab2
             bool found = false;
             // Флаг для отслеживания тайм-аута
             bool timeoutOccurred = false;
-
-            while (tasks.Count > 0)
-            {
-                try
-                {
-                    var completedTask = await Task.WhenAny(tasks);
-                    tasks.Remove(completedTask);
-
-                    var result = await completedTask;
-                    if (result == true)
-                    {
-                        cancellationSource.Cancel();
-                        found = true;
-                        break;
-                    }
-                }
-                catch (OperationCanceledException) when (cancellationSource.Token.IsCancellationRequested)
-                {
-                    timeoutOccurred = true;
-                    Console.WriteLine($"\nВнимание: Превышено общее время выполнения ({overallTimeout.TotalSeconds} сек.).");
-                    break;
-                }
-            }
+            (found, timeoutOccurred) = await CheckTasks(overallTimeout, cancellationSource, tasks, found, timeoutOccurred);
 
             const string HAPPYMESSAGE = "GG!";
             const string SADMESSAGE = "Not GG...";
