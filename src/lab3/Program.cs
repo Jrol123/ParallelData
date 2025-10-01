@@ -30,14 +30,11 @@ namespace lab3
 
         static async Task<(bool found, bool timeoutOccurred)> CheckTasks(TimeSpan overallTimeout, CancellationTokenSource cancellationSource, List<Task<bool?>> tasks, bool found, bool timeoutOccurred)
         {
-            while (tasks.Count > 0)
+            foreach (Task<bool?> task in tasks)
             {
                 try
                 {
-                    var completedTask = await Task.WhenAny(tasks);
-                    tasks.Remove(completedTask);
-
-                    var result = await completedTask;
+                    var result = await task;
                     if (result == true)
                     {
                         cancellationSource.Cancel();
@@ -61,7 +58,8 @@ namespace lab3
         public static async Task Main(string[] args)
         {
             const string text = "asjhdkajsdjkskjfldfghjghgasdhsadugkjashdjkashdjkhgdsagdhasfdgasdgsajhdtashdjashdsajdhjas;das;jkdasjkdpkjashdjklashdjhasgdhjagsdjhas;dlkjv";
-            const char symbol = 'u';
+            // u, v
+            const char symbol = ']';
             const int countParts = 20;
             TimeSpan overallTimeout = TimeSpan.FromSeconds(TIMESPAN_s);
 
