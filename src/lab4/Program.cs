@@ -5,23 +5,21 @@ namespace lab4
     class Program
     {
 
-        public static void PostTask(Task<string> previousTask)
+        public static async Task PostTask(Task<string> previousTask)
         {
-            // await Task.Run(() =>
-            // {
             Console.WriteLine();
             Console.WriteLine("Пост-обработка");
-            // await Task.Delay(1000); // Останавливает только функцию, в корневом потоке цикл прерывается и даётся команда о завершении задачи.
-            Task.Delay(1000).Wait(); // Команда о завершении задачи не даётся
+
+            await Task.Delay(500);
+
             Console.WriteLine();
             Console.WriteLine("Работа завершена!");
-            Console.WriteLine($"Полученная строка: {previousTask.Result}");
-            // });
-            // await Task.Delay(2000);
+
+            Console.WriteLine($"Полученная строка: {await previousTask}");
         }
 
         public delegate Task<string> CustomDelegate(string original, int shift);
-        public delegate void ContinueWithDelegate(Task<string> task);
+        public delegate Task ContinueWithDelegate(Task<string> task);
 
         // Пример использования с ожиданием через await (основной способ)
         public static async Task Main()
@@ -32,6 +30,7 @@ namespace lab4
 
             CustomDelegate lambdaDelegate = async (original, shift) =>
             {
+                Console.WriteLine("Шифровка началась");
                 await Task.Delay(1000);
                 // Task.Run используется для выноса CPU-bound операции в пул потоков
                 StringBuilder encrypted = new();
@@ -60,9 +59,13 @@ namespace lab4
             ContinueWithDelegate postDelegate = PostTask;
 
             // Демонстрация использования с ContinueWith (явное продолжение)
-            Task encryptionTask = lambdaDelegate(originalStr, shiftStr).ContinueWith(task => postDelegate(task));
+            Task encryptionTask = lambdaDelegate(originalStr, shiftStr).ContinueWith(task => postDelegate(task)).Unwrap(); // Unwrap преобразует вложенную операцию в часть основной
+            // Task encryptionTask = await lambdaDelegate(originalStr, shiftStr).ContinueWith(task => postDelegate(task)); // Переменной encryptionTask присваивается задача, возвращаемая ContinueWith (т. е. PostDelegate)
+            // Task encryptionTask = lambdaDelegate(originalStr, shiftStr).ContinueWith(async task => await postDelegate(task)).Unwrap(); // ContinueWith из-за async task вернёт Task даже до того, как postDelegate закончит работу
 
-            // Можно выполнять другую работу здесь, пока задача выполняется
+            // А лучше всего делать так:
+            // await PostTask(Task.FromResult(encrypted));
+
             Console.WriteLine("Идет шифрование... выполняется другая работа...");
 
             while (!encryptionTask.IsCompleted)
@@ -72,6 +75,8 @@ namespace lab4
             }
             Console.WriteLine();
             Console.WriteLine("--Цикл завершён--");
+
+            // await postDelegate;
 
             Console.WriteLine("Теперь всё готово!");
         }
