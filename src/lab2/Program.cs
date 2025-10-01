@@ -32,7 +32,7 @@ namespace lab2
         public static async Task Main(string[] args)
         {
             // u, v
-            const string text = "asjhdkajsdjkskjfldfghjghgasdhsadugkjashdjkashdjkhgdsagdhasfdgasdgsajhdtashdjashdsajdhjas;das;jkdasjkdpkjashdjklashdjhasgdhjagsdjhas;dlkjv";
+            const string text = "asjhdkajsdjkskjfldfghjghgasdhsadugkjashdjkashdjkhgdsagdhasfdgasdgsajhdtashdjashdsajdhjas;das;jkdasjkdpkvashdjklashdjhasgdhjagsdjhas;dl";
             const char symbol = 'u';
             const int countParts = 4;
 
@@ -50,7 +50,7 @@ namespace lab2
                     progress?.Report($"Шаг {i + 1} из {strLength} возможных");
                     if (charArray[i] == symbol)
                     {
-                        Console.WriteLine("Найдено!");
+                        progress?.Report("Найдено!");
                         return true;
                     }
 
@@ -67,9 +67,10 @@ namespace lab2
 
             for (int i = 0; i < parts.Length; i++)
             {
+                int processId = i + 1;
                 var progress = new Progress<string>(message =>
                 {
-                    Console.WriteLine($"[{DateTime.Now:HH:mm:ss.fff}] [Процесс {i + 1}] {message}");
+                    Console.WriteLine($"[{DateTime.Now:HH:mm:ss.fff}] [Процесс {processId}] {message}");
                 });
                 // Каждая часть проверяется в отдельной задаче
                 tasks.Add(lambdaDelegate(parts[i], symbol, progress, cancellationSource.Token));
@@ -93,9 +94,7 @@ namespace lab2
             const string HAPPYMESSAGE = "GG!";
             const string SADMESSAGE = "Not GG...";
 
-            string endmessage;
-
-            if (found) { endmessage = HAPPYMESSAGE; } else { endmessage = SADMESSAGE; }
+            string endmessage = found ? HAPPYMESSAGE : SADMESSAGE;
 
             Console.WriteLine(endmessage);
         }
