@@ -76,8 +76,6 @@ namespace lab4
             Console.WriteLine();
             Console.WriteLine("--Цикл завершён--");
 
-            // await postDelegate;
-
             Console.WriteLine("Теперь всё готово!");
         }
     }
