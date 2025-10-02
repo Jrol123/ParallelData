@@ -82,6 +82,8 @@ namespace lab5
 
         public static void Main(string[] args)
         {
+            // Тут вполне можно было бы использовать Task.Run вместо потоков, которые больше используются для долгих операций / нужен foreground-поток
+
             const int ROWS = 5;
             const int COLS = 5;
             const int THREAD_COUNT = 3;
